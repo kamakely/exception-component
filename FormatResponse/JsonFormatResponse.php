@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\FormatResponse;
+namespace Tounaf\Exception\FormatResponse;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

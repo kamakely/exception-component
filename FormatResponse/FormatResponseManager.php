@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\FormatResponse;
+namespace Tounaf\Exception\FormatResponse;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,7 +11,7 @@ final class FormatResponseManager
      * @var Request
      */
     private $request;
-    
+
     public function setRequest(Request $request)
     {
         $this->request = $request;

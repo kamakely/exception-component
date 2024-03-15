@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\RequestMatcher;
+namespace Tounaf\Exception\RequestMatcher;
 
 use Symfony\Component\HttpFoundation\Request;
 

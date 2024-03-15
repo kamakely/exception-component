@@ -1,9 +1,9 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Negociation;
+namespace Tounaf\Exception\Negociation;
 
 use Symfony\Component\HttpFoundation\Request;
-use Tounaf\ExceptionBundle\RequestMatcher\MatcherRequestInterface;
+use Tounaf\Exception\RequestMatcher\MatcherRequestInterface;
 
 class FormatNegociator
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Exception;
+namespace Tounaf\Exception\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseInterface;
 
 class GenericExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Exception;
+namespace Tounaf\Exception\Exception;
 
 class TounafException extends \Exception
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Handler\Http;
+namespace Tounaf\Exception\Handler\Http;
 
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseInterface;
 
 class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, FormatResponseCheckerInterface
 {

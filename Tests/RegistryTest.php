@@ -1,18 +1,18 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Tests;
+namespace Tounaf\Exception\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
-use Tounaf\ExceptionBundle\Exception\ExceptionRegistry;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\Exception\ExceptionRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Tounaf\ExceptionBundle\Exception\GenericExceptionHandler;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
-use Tounaf\ExceptionBundle\FormatResponse\HtmlFormatResponse;
-use Tounaf\ExceptionBundle\FormatResponse\JsonFormatResponse;
-use Tounaf\ExceptionBundle\Handler\LogicalExceptionHandler;
+use Tounaf\Exception\Exception\GenericExceptionHandler;
+use Tounaf\Exception\FormatResponse\FormatResponseManager;
+use Tounaf\Exception\FormatResponse\HtmlFormatResponse;
+use Tounaf\Exception\FormatResponse\JsonFormatResponse;
+use Tounaf\Exception\Handler\LogicalExceptionHandler;
 
 class RegistryTest extends TestCase
 {

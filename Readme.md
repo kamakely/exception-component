@@ -41,7 +41,7 @@ namespace App\Handler\Exception;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Tounaf\ExceptionBundle\ExceptionHandlerInterface;
+use Tounaf\Exception\ExceptionHandlerInterface;
 
 class MyExceptionHandler implements ExceptionHandlerInterface 
 {

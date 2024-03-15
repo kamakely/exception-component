@@ -1,11 +1,11 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Handler\Http;
+namespace Tounaf\Exception\Handler\Http;
 
-use Tounaf\ExceptionBundle\Exception\AbstractException;
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseInterface;
+use Tounaf\Exception\Exception\AbstractException;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

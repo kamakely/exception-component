@@ -1,11 +1,11 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Exception;
+namespace Tounaf\Exception\Exception;
 
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseCheckerInterface;
-use Tounaf\ExceptionBundle\FormatResponse\FormatResponseManager;
+use Tounaf\Exception\FormatResponse\FormatResponseCheckerInterface;
+use Tounaf\Exception\FormatResponse\FormatResponseManager;
 use Symfony\Component\HttpFoundation\Request;
-use Tounaf\ExceptionBundle\Handler\LogicalExceptionHandler;
+use Tounaf\Exception\Handler\LogicalExceptionHandler;
 
 class ExceptionRegistry
 {

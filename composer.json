@@ -1,5 +1,5 @@
 {
-    "name": "tounaf/exception-bundle",
+    "name": "tounaf/exception-component",
     "description": "Exception handler for symfony project",
     "type": "symfony-bundle",
     "license": "MIT",
@@ -8,12 +8,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Tounaf\\ExceptionBundle\\": ""
+            "Tounaf\\Exception\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tounaf\\ExceptionBundle\\Tests\\": "Tests/"
+            "Tounaf\\Exception\\Tests\\": "Tests/"
         }
     },
     "authors": [

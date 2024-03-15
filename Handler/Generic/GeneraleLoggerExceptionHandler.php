@@ -1,14 +1,14 @@
 <?php
 
-namespace Tounaf\ExceptionBundle\Handler\Generic;
+namespace Tounaf\Exception\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
-use Tounaf\ExceptionBundle\Exception\ExceptionHandlerInterface;
+use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Tounaf\ExceptionBundle\Exception\DecoratorExceptionHandlerInterface;
-use Tounaf\ExceptionBundle\Exception\TounafException;
+use Tounaf\Exception\Exception\DecoratorExceptionHandlerInterface;
+use Tounaf\Exception\Exception\TounafException;
 
 class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterface
 {
