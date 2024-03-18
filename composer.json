@@ -1,7 +1,7 @@
 {
-    "name": "tounaf/exception-component",
+    "name": "tounaf/exception-handler",
     "description": "Exception handler for symfony project",
-    "type": "symfony-bundle",
+    "type": "package",
     "license": "MIT",
     "require": {
         "symfony/http-foundation": "6.4.* || 6.3.* || 6.2.* || 6.1.* || 5.4.* || 4.4.*"
