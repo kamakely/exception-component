@@ -70,6 +70,7 @@ class ExceptionRegistry
                     }
 
                     $handler = $exceptionHandler;
+                    break;
                 }
             }
 
