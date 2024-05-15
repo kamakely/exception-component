@@ -18,7 +18,6 @@ class GeneraleExceptionHandler implements ExceptionHandlerInterface, FormatRespo
     }
     /**
      * @param  \Throwable $exception
-     * @return Response
      */
     public function handleException(\Throwable $throwable): Response
     {
@@ -33,7 +32,6 @@ class GeneraleExceptionHandler implements ExceptionHandlerInterface, FormatRespo
 
     /**
      * @param  \Exception $exception
-     * @return bool
      */
     public function supportsException(\Throwable $throwable): bool
     {

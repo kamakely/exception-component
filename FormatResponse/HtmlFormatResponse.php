@@ -6,14 +6,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HtmlFormatResponse implements FormatResponseInterface
 {
-    public function __construct()
-    {
-
-    }
-
     /**
      * @var    array $data
-     * @return Response
      */
     public function render(array $data): Response
     {
@@ -22,7 +16,6 @@ class HtmlFormatResponse implements FormatResponseInterface
 
     /**
      * @var    string $format
-     * @return bool
      */
     public function supportsFormat(string $format): bool
     {

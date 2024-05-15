@@ -15,10 +15,6 @@ class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, For
     {
 
     }
-    /**
-     * @param  \Throwable $throwable
-     * @return Response
-     */
     public function handleException(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
@@ -30,10 +26,6 @@ class AccessDeniedHttpExceptionHandler implements ExceptionHandlerInterface, For
         );
     }
 
-    /**
-     * @param  \Throwable $throwable
-     * @return bool
-     */
     public function supportsException(\Throwable $throwable): bool
     {
         return $throwable instanceof AccessDeniedHttpException;

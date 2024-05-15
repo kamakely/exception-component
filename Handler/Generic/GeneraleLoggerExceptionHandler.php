@@ -3,6 +3,7 @@
 namespace Tounaf\Exception\Handler\Generic;
 
 use Psr\Log\LoggerInterface;
+use ReflectionObject;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +24,15 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
     {
         $this->logger = $logger;
     }
-    /**
-     * @param  \Throwable $throwable
-     * @return Response
-     */
     public function handleException(\Throwable $throwable): Response
     {
         $e = FlattenException::createFromThrowable($throwable);
-        $this->logException($throwable, sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()));
+
+        $handlers = $this->extractHandler($this);
+
+
+        $this->logException($throwable, sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()), $handlers);
+
         return $this->decoratedExceptionHandlerInterface->handleException($throwable);
     }
 
@@ -44,17 +46,38 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
         $this->decoratedExceptionHandlerInterface = $decoratedExceptionHandlerInterface;
     }
 
-    protected function logException(\Throwable $exception, $message)
+    private function extractHandler(ExceptionHandlerInterface $handler)
     {
+        $handlers = [];
+        $reflection = new ReflectionObject($handler);
+        $properties = $reflection->getProperties();
+
+        foreach($properties as $property) {
+            $property->setAccessible(true);
+            $h = $property->getValue($handler);
+            if ($h instanceof ExceptionHandlerInterface) {
+                $handlers [] = get_class($h);
+                $handlers [] = $this->extractHandler($h);
+            }
+        }
+
+        return $handlers;
+
+    }
+
+
+    protected function logException(\Throwable $exception, $message, array $handlers = [])
+    {
+        $context = ['exception' => $exception, 'handlers' => $handlers];
         if (!$exception instanceof HttpExceptionInterface) {
             $this->logger->critical(
                 $message,
-                ['exception' => $exception]
+                $context
             );
         } else {
             $this->logger->error(
                 $message,
-                ['exception' => $exception]
+                $context
             );
         }
     }

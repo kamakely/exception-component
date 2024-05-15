@@ -13,24 +13,17 @@ class LogicalExceptionHandler implements ExceptionHandlerInterface, FormatRespon
     {
 
     }
-    /**
-     * @param  \Throwable $throwable
-     * @return Response
-     */
     public function handleException(\Throwable $throwable): Response
     {
         return $this->formatResponseInterface->render(
             [
                 'message' => $throwable->getMessage(),
-                'http_message' => 'Logical Exception'
+                'http_message' => 'Logical Exception',
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR
             ]
         );
     }
 
-    /**
-     * @param  \Throwable $throwable
-     * @return bool
-     */
     public function supportsException(\Throwable $throwable): bool
     {
         return false;

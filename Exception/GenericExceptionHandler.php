@@ -13,10 +13,6 @@ class GenericExceptionHandler implements ExceptionHandlerInterface, FormatRespon
      */
     private $formatResponseInterface;
 
-    /**
-     * @param  \Throwable $throwable
-     * @return Response
-     */
     public function handleException(\Throwable $throwable): Response
     {
         $messageExeption = $throwable->getMessage();
@@ -24,18 +20,13 @@ class GenericExceptionHandler implements ExceptionHandlerInterface, FormatRespon
             [
             'message' => $messageExeption,
             'http_message' => 'Erreur interne',
-            'code' => Response::HTTP_INTERNAL_SERVER_ERROR
             ]
         );
     }
 
-    /**
-     * @param  \Throwable $throwable
-     * @return bool
-     */
     public function supportsException(\Throwable $throwable): bool
     {
-        return false;
+        return true;
     }
 
     /**

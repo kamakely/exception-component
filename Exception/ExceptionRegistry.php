@@ -24,9 +24,19 @@ class ExceptionRegistry
      */
     private $decoratorExceptionHandlers = [];
 
+    /**
+     * @var ExceptionHandlerInterface
+     */
+    private $defaultExceptionHandler;
+
+    /**
+     * @var ExceptionHandlerInterface
+     */
+    private $exceptionHandler;
+
     public function __construct(iterable $exceptionHandlers)
     {
-        $this->exceptionHandlers = $exceptionHandlers;
+        $this->exceptionHandlers = iterator_to_array($exceptionHandlers);
     }
 
     public function setFormatManager(FormatResponseManager $formatResponseManager): void
@@ -34,25 +44,33 @@ class ExceptionRegistry
         $this->formatResponseManager = $formatResponseManager;
     }
 
-    public function addDecorator(DecoratorExceptionHandlerInterface $decoratorExceptionHandler)
+    public function addDecorator(DecoratorExceptionHandlerInterface $decoratorExceptionHandler): void
     {
         $this->decoratorExceptionHandlers [] = $decoratorExceptionHandler;
     }
 
+    public function setDefaultHandler(ExceptionHandlerInterface $defaultExceptionHandler): void
+    {
+        $this->defaultExceptionHandler = $defaultExceptionHandler;
+    }
 
+    public function addHandler(ExceptionHandlerInterface $handler): void
+    {
+        $this->exceptionHandlers [] = $handler;
+    }
 
     /**
-     * @param  \Throwable $throwable
      * @return AbstractException|ExceptionHandlerInterface
      */
     public function getExceptionHandler(\Throwable $throwable, Request $request)
     {
         $formatResponse = $this->formatResponseManager->getFormatHandler($request->getRequestFormat(null));
-        $handler = new GenericExceptionHandler();
-        $handler->setFormat($formatResponse);
-        try {
-            foreach($this->exceptionHandlers as $exceptionHandler) {
 
+        try {
+
+            $this->addHandler($this->defaultExceptionHandler);
+
+            foreach($this->exceptionHandlers as $exceptionHandler) {
                 if (!$exceptionHandler instanceof ExceptionHandlerInterface) {
                     throw new TounafException(
                         sprintf(
@@ -69,21 +87,19 @@ class ExceptionRegistry
                         $exceptionHandler->setFormat($formatResponse);
                     }
 
-                    $handler = $exceptionHandler;
+                    $this->exceptionHandler = $exceptionHandler;
                     break;
                 }
             }
 
         } catch(\Throwable $exception) {
-
-            $handler = new LogicalExceptionHandler($formatResponse);
-
+            $this->exceptionHandler = new LogicalExceptionHandler($formatResponse);
         }
 
-        return  $this->decoratesHandler($handler);
+        return  $this->decoratesHandler($this->exceptionHandler);
     }
 
-    private function decoratesHandler($handler)
+    private function decoratesHandler(ExceptionHandlerInterface $handler)
     {
         foreach($this->decoratorExceptionHandlers as $decoratorHandler) {
             /**

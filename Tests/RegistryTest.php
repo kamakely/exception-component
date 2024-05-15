@@ -29,6 +29,9 @@ class RegistryTest extends TestCase
         $this->request->setRequestFormat('json');
     }
 
+    /**
+     * @group test
+     */
     public function testRightHandler(): void
     {
         $exception = new MyException();
@@ -55,12 +58,12 @@ class RegistryTest extends TestCase
         $this->assertInstanceOf(LogicalExceptionHandler::class, $handler);
     }
 
-    public function testNoConfiguredHandler(): void
+    public function testNoLogicalHandler(): void
     {
         $registry = new ExceptionRegistry([]);
         $registry->setFormatManager(new FormatResponseManager());
         $handler = $registry->getExceptionHandler(new \Exception(), $this->request);
-        $this->assertInstanceOf(GenericExceptionHandler::class, $handler);
+        $this->assertInstanceOf(LogicalExceptionHandler::class, $handler);
     }
 
     public function testResponse(): void
@@ -89,6 +92,7 @@ class RegistryTest extends TestCase
     {
         $formatManager = $this->configureFormatManager();
         $registry = new ExceptionRegistry([new CustomHandler()]);
+        $registry->setDefaultHandler(new GenericExceptionHandler());
         $registry->setFormatManager($formatManager);
         return $registry;
     }
@@ -128,7 +132,6 @@ class CustomHandler implements ExceptionHandlerInterface
 
     /**
      * @param  \Exception $exception
-     * @return bool
      */
     public function supportsException(\Throwable $exception): bool
     {
@@ -154,7 +157,6 @@ class BadHandler
 
     /**
      * @param  \Exception $exception
-     * @return bool
      */
     public function supportsException(\Throwable $exception): bool
     {

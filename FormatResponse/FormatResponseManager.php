@@ -7,16 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 final class FormatResponseManager
 {
     private $formatHandlers = [];
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
-    }
-    public function addFormatResponse(FormatResponseInterface $formatResponseInterface)
+    public function addFormatResponse(FormatResponseInterface $formatResponseInterface): void
     {
         $this->formatHandlers[] = $formatResponseInterface;
     }

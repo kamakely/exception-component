@@ -9,7 +9,6 @@ class JsonFormatResponse implements FormatResponseInterface
 {
     /**
      * @var    array $data
-     * @return Response
      */
     public function render(array $data): Response
     {
@@ -18,7 +17,6 @@ class JsonFormatResponse implements FormatResponseInterface
 
     /**
      * @var    string $format
-     * @return bool
      */
     public function supportsFormat(string $format): bool
     {

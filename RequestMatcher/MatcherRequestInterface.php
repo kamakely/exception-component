@@ -8,7 +8,6 @@ interface MatcherRequestInterface
 {
     /**
      * @var Request $request
-     * @return bool
      */
     public function match(Request $request): bool;
 }

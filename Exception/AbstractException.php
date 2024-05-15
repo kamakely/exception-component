@@ -5,8 +5,6 @@ namespace Tounaf\Exception\Exception;
 abstract class AbstractException implements ExceptionHandlerInterface
 {
     /**
-     * @param \Exception $exception
-     *
      * @return array
      */
     protected function getMessageParts(\Exception $exception)
