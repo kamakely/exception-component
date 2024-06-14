@@ -20,7 +20,7 @@ class ExceptionRegistry
     private $formatResponseManager;
 
     /**
-     * @var DecoratorExceptionHandlerInterface[] $decoratorExceptionHandler
+     * @var AbstractExceptionHandler[] $decoratorExceptionHandler
      */
     private $decoratorExceptionHandlers = [];
 
@@ -44,7 +44,7 @@ class ExceptionRegistry
         $this->formatResponseManager = $formatResponseManager;
     }
 
-    public function addDecorator(DecoratorExceptionHandlerInterface $decoratorExceptionHandler): void
+    public function addDecorator(AbstractExceptionHandler $decoratorExceptionHandler): void
     {
         $this->decoratorExceptionHandlers [] = $decoratorExceptionHandler;
     }
@@ -103,7 +103,7 @@ class ExceptionRegistry
     {
         foreach($this->decoratorExceptionHandlers as $decoratorHandler) {
             /**
-             * @var DecoratorExceptionHandlerInterface $decoratorHandler
+             * @var AbstractExceptionHandler $decoratorHandler
              */
             $decoratorHandler->decoratesHandler($handler);
             $handler = $decoratorHandler;
