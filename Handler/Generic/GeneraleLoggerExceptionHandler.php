@@ -78,8 +78,4 @@ class GeneraleLoggerExceptionHandler extends AbstractExceptionHandler
         }
     }
 
-    public function supportsException(\Throwable $throwable): bool
-    {
-        return true;
-    }
 }
