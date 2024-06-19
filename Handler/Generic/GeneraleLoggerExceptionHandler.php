@@ -5,25 +5,21 @@ namespace Tounaf\Exception\Handler\Generic;
 use Psr\Log\LoggerInterface;
 use ReflectionObject;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
+use Symfony\Component\HttpFoundation\Exception\RequestExceptionInterface;
 use Tounaf\Exception\Exception\ExceptionHandlerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
-use Tounaf\Exception\Exception\DecoratorExceptionHandlerInterface;
-use Tounaf\Exception\Exception\TounafException;
+use Tounaf\Exception\Exception\AbstractExceptionHandler;
 
-class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterface
+class GeneraleLoggerExceptionHandler extends AbstractExceptionHandler
 {
-    /**
-     * @var LoggerInterface $logger
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    private ExceptionHandlerInterface $decoratedExceptionHandlerInterface;
 
     public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
+
     public function handleException(\Throwable $throwable): Response
     {
         $e = FlattenException::createFromThrowable($throwable);
@@ -31,28 +27,29 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
         $handlers = $this->extractHandler($this);
 
 
-        $this->logException($throwable, sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), $e->getFile(), $e->getLine()), $handlers);
+        $this->logException(
+            $throwable,
+            sprintf(
+                'Uncaught PHP Exception %s: "%s" at %s line %s',
+                $e->getClass(),
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
+            ),
+            $handlers
+        );
 
         return $this->decoratedExceptionHandlerInterface->handleException($throwable);
     }
 
-    public function supportsException(\Throwable $throwable): bool
-    {
-        return $throwable instanceof TounafException;
-    }
 
-    public function decoratesHandler(ExceptionHandlerInterface $decoratedExceptionHandlerInterface): void
-    {
-        $this->decoratedExceptionHandlerInterface = $decoratedExceptionHandlerInterface;
-    }
-
-    private function extractHandler(ExceptionHandlerInterface $handler)
+    private function extractHandler(ExceptionHandlerInterface $handler): array
     {
         $handlers = [];
         $reflection = new ReflectionObject($handler);
         $properties = $reflection->getProperties();
 
-        foreach($properties as $property) {
+        foreach ($properties as $property) {
             $property->setAccessible(true);
             $h = $property->getValue($handler);
             if ($h instanceof ExceptionHandlerInterface) {
@@ -62,14 +59,13 @@ class GeneraleLoggerExceptionHandler implements DecoratorExceptionHandlerInterfa
         }
 
         return $handlers;
-
     }
 
 
-    protected function logException(\Throwable $exception, $message, array $handlers = [])
+    protected function logException(\Throwable $exception, $message, array $handlers = []): void
     {
         $context = ['exception' => $exception, 'handlers' => $handlers];
-        if (!$exception instanceof HttpExceptionInterface) {
+        if (!$exception instanceof RequestExceptionInterface) {
             $this->logger->critical(
                 $message,
                 $context
